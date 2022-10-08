@@ -1,18 +1,6 @@
 Hey guys, bob01's here.
 
-# Biography
+Welcome to my blog :) 
 
-I am Francesco Varotto and I obtained my bachelor's and master's degree
-@University of Padova in Informatic Engineering and Cybersecurity, in 2017 and 2022, respectively.
-My master thesis focused on a new defence against website fingerprinting attacks, named *Divergent*
-([here](https://github.com/francevarotz98/Divergent) you can find the link to the project).
-
-My interests focus on: 
-<ul>
-  <li> Network Security </li>
-  <li> Web Security </li>
-  <li> Reverse Engineering </li>
-  <li> Side-Channels </li>
-</ul>
-      
+  
 
