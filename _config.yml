@@ -31,9 +31,9 @@ kramdown:
     
     
     
-header_pages:
-  - resume.html
-  - archive.md
+#header_pages:
+  #- resume.html
+  #- archive.md
 
 
 plugins:
