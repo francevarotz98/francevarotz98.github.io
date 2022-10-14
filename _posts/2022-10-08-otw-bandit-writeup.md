@@ -19,7 +19,7 @@ So, in order to log into the machine we need to type the following command:
 </code>  
 and then insert the password (i.e., bandit0).  
 Once inside, we list the files in the home directory and see we have a *readme* file, as we can observe in the figure below. 
-![ls files in home directory](../images/bandit0/ls.png?raw=true)  
+![ls files in home directory](/images/bandit0/ls.png?raw=true)  
 As we can observe, the owner of the file is *bandit1* (who has *read* -r- and write -w- permissions), while the group-owner is *bandit0* (i.e., us) and has read permission.  
 Therefore, simply read the content of the readme file in order to get the password for the next level, by launching the command:  
 <code>
