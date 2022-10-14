@@ -9,3 +9,16 @@ to better understand, in general, how the Linux systems work.
 Let's go.
 
 ## Level 0
+In this level we need to login through the *ssh* command. *ssh* stands for 'Secure Shell' and, according to its man page, *is a program for logging into a remote machine and for executing commands on a remote machine.*
+In general, in order to access a remote machine, we need a **username** and a **password**. Here in this level, *bandit0* is both the username and the password.  
+Note that, in the level description, they state that we need to connect through port 2220 (the default one is port 22).
+
+So, in order to log into the machine we need to type the following command:  
+<code>
+  ssh bandit0@bandit.labs.overthewire.org -p 2220
+</code>  
+and then insert the password (i.e., bandit0).  
+Once inside, we list the files in the home directory and see we have a *readme* file, as we can observe in the image (see fig. below). ![ls files in home directory](images/bandit0/ls.png).
+  
+
+
