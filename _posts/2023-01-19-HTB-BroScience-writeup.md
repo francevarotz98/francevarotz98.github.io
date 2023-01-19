@@ -64,4 +64,13 @@ Inspecting the */includes/* path, we find 5 .php files, namely: db_connect.php, 
 When entering in the img.php file, we obtain the following error:
 
 ![missing_path](/images/htb_broscience/img_php_missing_path.png?raw=true)
-  
+
+Leveraging the *path* query parameter, we can exploit the LFI vulnerability. Note that there is a sort of filter for potential malicious payloads (in the image below, we tried with *../*).
+
+![filter_payload](/images/htb_broscience/filter_img_php.png)
+
+In order to bypass it, we just need to double-encode the payload using the URL encoding.
+
+Doing so, we can read all the .php files.
+
+**To finish**
