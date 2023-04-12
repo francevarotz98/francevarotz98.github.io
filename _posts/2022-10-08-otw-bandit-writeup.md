@@ -1,10 +1,9 @@
-# Walkthrough of the Bandit wargame (OverTheWire)
+# Writeup Bandit wargame (OverTheWire)
 
 OverTheWire ([link to the webpage](https://overthewire.org/)) is a website which contains a lot of different levels in order to improve some 
 security concepts, in the form of CTFs.
 
-Particularly, in this blog we are going through the 'Bandit' wargame, which is for beginners and helps 
-to better understand, in general, how the Linux systems work.
+Particularly, in this blog we are going through the 'Bandit' wargame, which is for beginners and helps to better understand, in general, how the Linux systems work.
 
 Let's go.
 
@@ -35,7 +34,22 @@ It is very similar to the previous level, except that the password for level 2 i
 
 
 ## Level 2 &rarr; 3
-**TODO**
-  
-
+Here, the filename contains spaces, so in order to cat such file we can do it in two possible ways:
+* inserting the filename inside double quotes;  
+* escaping space characters with backslash.
+Digging deeper on how the cat command works with filanames which contain spaces, we can observe its behaviour using the *strace* command.
+Indeed, as we can see in the figure below, if we use the following command:
+<code>
+  strace cat spaces in this filename 
+</code>
+there are as many calls to *cat* as the number of separated-by-space items (in the image, three). 
+![img3](/images/bandit0/img3.png?raw=true) 
+Instead, using:
+<code>
+cat "spaces in this filename"
+</code>
+there is only one call to *cat*.
+![img4](/images/bandit0/img4.png?raw=true)
+So, the solution:
+![img2](/images/bandit0/img2.png?raw=true)
 
