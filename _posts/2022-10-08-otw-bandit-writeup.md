@@ -13,24 +13,24 @@ In general, in order to access a remote machine, we need a **username** and a **
 Note that, in the level description, they state that we need to connect through port 2220 (the default one is port 22).
 
 So, in order to log into the machine we need to type the following command:  
-<code>
+```
   ssh bandit0@bandit.labs.overthewire.org -p 2220
-</code>  
+```  
 and then insert the password (i.e., bandit0).  
 Once inside, we list the files in the home directory and see we have a *readme* file, as we can observe in the figure below. 
 ![ls files in home directory](/images/bandit0/ls.png?raw=true)  
 As we can observe, the owner of the file is *bandit1* (who has *read* -r- and write -w- permissions), while the group-owner is *bandit0* (i.e., us) and has read permission.  
 Therefore, simply read the content of the readme file in order to get the password for the next level, by launching the command:  
-<code>
+```
   cat readme
-</code>
+```
 
 
 ## Level 1 &rarr; 2
 It is very similar to the previous level, except that the password for level 2 is contained in a file named "**-**". Since the *cat* command treats the dash symbol as stdin ([link](https://unix.stackexchange.com/questions/16357/usage-of-dash-in-place-of-a-filename)), in order to read such a file we need to use the following syntax:  
-<code>
+```
   cat ./-
-</code>
+```
 
 
 ## Level 2 &rarr; 3
@@ -64,4 +64,26 @@ So, the possible ways to get the flag:
 
 
 ## Level 3 &rarr; 4
+In the Linux systems, if we want to list files in a directory, we can simply run the *ls* command. However, if the name of a file starts with a dot (for instance, .s3cret), this file is a hidden one. Therefore, in order to "see" such file we need to add the *-a* option to the ls command.
 
+Solution:
+
+![img5](/images/bandit0/img5.png?raw=true)
+
+
+## Level 4 &rarr; 5
+In the home directory there is an *inhere* directory. Using what we learnt in level 1 &rarr; 2 and the following command:
+
+```
+file ./-file0*
+```
+
+we obtain information for each file in the directory, whose name start with "-file0".
+
+![img6](/images/bandit0/img6.png?raw=true)
+
+As we can observe from the output, *-file07* is an ASCII file, which contains the password for the next level.
+
+
+## Level 5 &rarr; 6
+TODO
