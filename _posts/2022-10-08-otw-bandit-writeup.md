@@ -39,17 +39,22 @@ Here, the filename contains spaces, so in order to cat such file we can do it in
 * escaping space characters with backslash.
 Digging deeper on how the cat command works with filanames which contain spaces, we can observe its behaviour using the *strace* command.
 Indeed, as we can see in the figure below, if we use the following command:
+
 <code>
   strace cat spaces in this filename 
 </code>
 there are as many calls to *cat* as the number of separated-by-space items (in the image, three). 
 ![img3](/images/bandit0/img3.png?raw=true) 
 Instead, using:
+
 <code>
 cat "spaces in this filename"
 </code>
 there is only one call to *cat*.
+
 ![img4](/images/bandit0/img4.png?raw=true)
-So, the solution:
+
+So, the possible ways to get the flag:
+
 ![img2](/images/bandit0/img2.png?raw=true)
 
