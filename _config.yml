@@ -1,6 +1,6 @@
 title: "Francesco Varotto"
 author: "Francesco Varotto"
-description: "Website of Francesco Varotto - aka bob01" # This will show up in places like twitter, linkedin, etc, if you share your sites url as a post.
+description: "Blog of bob01" # This will show up in places like twitter, linkedin, etc, if you share your sites url as a post.
 url: https://francevarotz98.github.io
 
 timezone: Etc/UTC
@@ -51,5 +51,5 @@ defaults:
       path: ""
       type: post
     values:
-      tags: Other
+      tags: Writeups
       
