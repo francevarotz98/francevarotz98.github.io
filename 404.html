@@ -16,6 +16,7 @@
 
       h1 { position:relative; letter-spacing: -1px; line-height: 130px; font-size: 60px; font-weight: 100; margin: 0px 0 50px 0; text-shadow: 0 1px 0 #fff; text-align: center; }
       p { color: rgba(0, 0, 0, 0.5); margin: 20px 0; line-height: 1.6; text-align: center; font-size: 20px }
+    img { width: 300px; height: 300px; object-fit: contain; }
 
   </style>
    <script>
@@ -23,7 +24,7 @@ function getRandomImage() {
     const NUM_IMGS = 4;
     var num = Math.floor( Math.random() * NUM_IMGS);
     console.log("[D] num:",num);
-    document.getElementById("randImg").innerHTML = ('<img src="' + '/images/404/' + num + '.webp' + '" width="228px" height="228px">');
+    document.getElementById("randImg").innerHTML = ('<img src="' + '/images/404/' + num + '.webp' + '">');
 }
 </script>
 </head>
