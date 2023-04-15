@@ -1,7 +1,9 @@
+<!DOCTYPE html>
 <html>
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8">
   <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; connect-src 'self'"> -->
+  <title>bob01 - Page not found</title>
   <style type="text/css" media="screen">
       body {
         background-color: #f1f1f1;
@@ -13,18 +15,24 @@
       a:hover { text-decoration: underline; }
 
       h1 { position:relative; letter-spacing: -1px; line-height: 130px; font-size: 60px; font-weight: 100; margin: 0px 0 50px 0; text-shadow: 0 1px 0 #fff; text-align: center; }
-      p { color: rgba(0, 0, 0, 0.5); margin: 20px 0; line-height: 1.6; text-align: center; }
+      p { color: rgba(0, 0, 0, 0.5); margin: 20px 0; line-height: 1.6; text-align: center; font-size: 20px }
 
   </style>
-  <title>bob01 - Page not found</title>
+   <script type="text/javascript">
+function getRandomImage() {
+    const NUM_IMGS = 2;
+    var num = Math.floor( Math.random() * NUM_IMGS);
+    console.log("[D] num:",num);
+    document.getElementById("randImg").innerHTML = ('<img src="' + '/images/random/' + num + '.webp' + '" width="228px" height="228px">')
+width="228" height="228"
+}
+</script>
 </head>
-
-<body>
+<body onload=getRandomImage>
   <h1>
     404 
   </h1>
-  <p>
-    <img src="/images/404/doc-03-512.webp" title="404" alt="404-img" width="228" height="228">
+  <p id="randImg">
   </p>
   <p>
     <strong>
