@@ -6,6 +6,8 @@ The following machine is a medium-level one of linux-type.
 
 Let's begin.
 
+---
+
 ## Port scanning
 
 We start by scanning the open ports with *nmap* and we get the following results:
@@ -26,6 +28,8 @@ sudo echo "<IP_machine> broscience.htb" >> /etc/hosts
   
 Then, we navigate to the website, let's see. 
  
+---
+
 ## Website
  
 When we try to enter to "broscience.htb:80", we are redirected to port 443 (HTTPS protocol).
@@ -36,7 +40,8 @@ The image below illustrate the homepage of the website.
  
  On the top right we notice a *LOG IN* link, but we are going to exploit it later. 
  
- 
+---
+
 ## Directories finding
  
 Analyzing the HTML of the homepage, we come up with some interesting files:
@@ -57,6 +62,8 @@ and we obtain these paths:
 
 (also tried to enumerate subdomains but didn't find nothing).
 
+---
+
 ## Local File Inclusion
 
 Inspecting the */includes/* path, we find 5 .php files, namely: db_connect.php, header.php, img.php, navbar.php and utils.php.
@@ -71,6 +78,46 @@ Leveraging the *path* query parameter, we can exploit the LFI vulnerability. Not
 
 In order to bypass it, we just need to double-encode the payload using the URL encoding.
 
-Doing so, we can read all the .php files.
+Doing so, we can read arbitrary files in the file system, as */etc/passwd*:
 
-**To finish**
+![etc-passwd-file](/images/htb_broscience/img1.png)
+
+---
+
+## Log in with a new account
+
+In order to log in, we need to create a new account in the web app (through *register.php*).
+Once registered, an activation code should be sent to our email, but as we can read in the register.php file (downloaded thanks to the LFI vulnerability), this function is not implemented (point 1 figure below). However, the activation code is still generated (point 2) and inserted in the database.
+
+![img12](/images/htb_broscience/img12.png)
+
+We can find *generate_activation_code()* inside */includes/utils.php* and it's implemented in this way:
+
+```php
+function generate_activation_code() {
+    $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    srand(time());
+    $activation_code = "";
+    for ($i = 0; $i < 32; $i++) {
+        $activation_code = $activation_code . $chars[rand(0, strlen($chars) - 1)];
+    }
+    return $activation_code;
+}
+```
+
+As we can observe, it generates a 32 characters token, composed by letters and numbers. The seed of the random function is the time when the function is called (`srand(time())`), so, in order to get the token associated to our account, we just need to get the time when the response of the server was sent (as a response to our registration request) and replicate the code, substituting `srand(time());` to `srand(strtotime("Sat, DD MMM YYYY hh:mm:ss GMT"));` .
+
+Once got the activation code, we call *activate.php* and we insert the token in *code*, as below:
+
+![activate-account](/images/htb_broscience/img3.png)
+
+Now we can log in to our account with the username and password we insterted.
+
+---
+
+## Insecure deserialization
+
+TO FINISH
+
+
+
