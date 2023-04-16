@@ -93,7 +93,7 @@ Once registered, an activation code should be sent to our email, but as we can r
 
 We can find *generate_activation_code()* inside */includes/utils.php* and it's implemented in this way:
 
-```php
+```
 function generate_activation_code() {
     $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     srand(time());
