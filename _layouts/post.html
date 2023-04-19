@@ -24,17 +24,17 @@ layout: default
       <nav id="toc" data-toggle="toc">
       </nav>
     </div>
-  </div>
   
-  <div class="share-links">
-    {% include sharelinks.html %}
-  </div>
+  
+    <div class="share-links">
+      {% include sharelinks.html %}
+    </div>
 
-  <div class="post-content e-content" itemprop="articleBody">
-    {{ content }}
-    {% include navlinks.html %}
+    <div class="post-content e-content" itemprop="articleBody">
+      {{ content }}
+      {% include navlinks.html %}
+    </div>
   </div>
-
   <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 </article>
 
