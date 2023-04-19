@@ -2,6 +2,12 @@ body {
   position: relative;
 }
 
+.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+
 hr {
   margin-top: 30px;
   margin-bottom: 20px;
