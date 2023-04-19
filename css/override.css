@@ -1,19 +1,19 @@
 body {
   position: relative;
-  display: flex;
+  /*display: flex;*/
 }
 
 .sticky-top {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: 125px;
   z-index: 1020;
+  left: 90px;
 }
 
 .row {
-  /*display: flex;*/
+  display: flex;
   flex-wrap: wrap;
   margin-right: -15px;
-  margin-left: -15px;
 }
 
 hr {
