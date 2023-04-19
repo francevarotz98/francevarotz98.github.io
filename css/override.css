@@ -8,6 +8,13 @@ body {
   z-index: 1020;
 }
 
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
 hr {
   margin-top: 30px;
   margin-bottom: 20px;
