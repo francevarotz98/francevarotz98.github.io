@@ -1,5 +1,6 @@
 body {
   position: relative;
+  display: flex;
 }
 
 .sticky-top {
@@ -9,7 +10,7 @@ body {
 }
 
 .row {
-  display: flex;
+  /*display: flex;*/
   flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
