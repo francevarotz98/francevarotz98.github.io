@@ -44,4 +44,15 @@ layout: default
 <script type="text/javascript" src="/js/jquery-3.6.4.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/js/bootstrap-toc.min.js"></script>
+  
+<!-- Initialize Bootstrap-Toc - remove last h2 from table of contents -->
+<script>
+ $(document).ready(function() {
+ $('#toc').toc({
+   'selectors': 'h2', // specify which heading tags to include in the table of contents
+   'container': '.blog-content', // specify the container for the content of the blog
+   'exclude': ':last' // exclude the last h2 element from the table of contents
+  });
+ });
+  </script>
 </body>
