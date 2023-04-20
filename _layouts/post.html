@@ -47,12 +47,12 @@ layout: default
   
 <!-- Initialize Bootstrap-Toc - remove last h2 from table of contents -->
 <script>
- $(document).ready(function() {
- $('#toc').toc({
-   'selectors': 'h2', // specify which heading tags to include in the table of contents
-   'container': '.blog-content', // specify the container for the content of the blog
-   'exclude': ':last' // exclude the last h2 element from the table of contents
+  document.addEventListener('DOMContentLoaded', function() {
+  var toc = new Toc('toc', {
+    selectors: 'h2',
+    container: '.blog-content',
+    exclude: ':last'
   });
- });
+  });
   </script>
 </body>
