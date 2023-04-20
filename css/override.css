@@ -17,12 +17,14 @@ body {
   padding-left: 0px;
 }
 
+/*
 .row {
   display: flex;
   flex-wrap: wrap;
   margin-right: -15px;
 }
 
+*/
 hr {
   margin-top: 30px;
   margin-bottom: 20px;
