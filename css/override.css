@@ -1,13 +1,14 @@
 body {
   position: relative;
-  /*display: flex;*/
+  display: flex;
 }
 
 .sticky-top {
-  position: fixed;
+  /*position: fixed;
+  left: 90px;*/
   top: 125px;
   z-index: 1020;
-  left: 90px;
+  
 }
 
 .row {
