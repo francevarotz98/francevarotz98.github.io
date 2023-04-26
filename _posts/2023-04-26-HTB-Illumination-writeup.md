@@ -1,5 +1,7 @@
 # Writeup Illumination challenge (HackTheBox)
 
+![logo](/images/illumination/forensics-logo.png?raw=true)
+
 The Illumination challenge belongs to the *Forensics* category and it is classified as (very) easy.
 
 The aim of the challenge is to discover a secret token.
