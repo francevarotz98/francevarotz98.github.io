@@ -1,6 +1,9 @@
 body {
   position: relative;
   display: flex;
+  font-family: 'Lora', 'Times new roman';
+  font-size: larger;
+  color: #404040;
 }
 
 .sticky-top {
