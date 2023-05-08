@@ -1,4 +1,4 @@
-# Writeup of the BroScience machine (HackTheBox)
+# Writeup BroScience machine (HackTheBox)
 
 ![logo_machine](/images/htb_broscience/logo_machine.png?raw=true)
 
