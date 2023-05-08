@@ -1,4 +1,21 @@
+<!DOCTYPE html>
 <html>
+  <head>
+    <style>
+      body {margin:25px;}
+      div.myimg {
+        width: 80%;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        margin-bottom: 25px;
+      }
+      div.container {
+        text-align: center;
+        padding: 10px 20px;
+      }
+    </style>
+  </head>
+  
 <h1> 
   Biography
 </h1>
@@ -20,10 +37,12 @@
 </p>
 
 <p>
-  <figure>
-    <img src="/images/profile_photo.jpeg" alt="That's me">
-    <figcaption>.... and that's me</figcaption>
-  </figure>
+<div class="myimg">
+  <img src="/images/profile_photo.jpeg" alt="That's me">
+  <div class="container">
+    <p>... and that's me</p>
+  </div>
+</div>
    
 </p>
 
