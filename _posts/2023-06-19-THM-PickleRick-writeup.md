@@ -58,12 +58,12 @@ For example, if we type the ```ls``` command, we can get the following results:
 * portal.php
 * robots.txt
 
-* we need to cat Sup3rS3cretPickl3Ingred.txt file but a filter is placed
+Immediately, we notice the Sup3rS3cretPickl3Ingred.txt file. However, if we try to cat it, a filter is placed:
 
 ![img4](/images/pickle_rick-thm/img4.png?raw=true)
 
 
-* bypass it using the following command
+In order to bypass it, we used metacharacters for pattern matching ([link](https://www.linux.com/topic/desktop/introduction-regular-expressions-new-linux-users/)). For example, with this command we can retrieve the data in the file:
 
 ```
 /bin/c?t Sup3rS3cretPickl3Ingred.txt
@@ -71,8 +71,8 @@ For example, if we type the ```ls``` command, we can get the following results:
 
 ![img5](/images/pickle_rick-thm/img5.png?raw=true):
 
+Great! First flag found.
 
-first flag found: mr. meeseek hair
 
 ## Second ingredient
 
