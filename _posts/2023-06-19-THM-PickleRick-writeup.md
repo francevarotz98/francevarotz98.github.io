@@ -18,26 +18,9 @@ Let's begin.
 ```
 nmap -sV -A -T4 10.10.38.165 -oN nmap.txt
 ```
-Result:
-```
-Starting Nmap 7.80 ( https://nmap.org ) at 2023-05-01 12:10 CEST
-Nmap scan report for 10.10.38.165
-Host is up (0.085s latency).
-Not shown: 998 closed ports
-PORT   STATE SERVICE VERSION
-22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.6 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey:
-|   2048 48:2b:8f:aa:8a:8b:0f:4c:9e:5e:ed:bc:14:89:22:39 (RSA)
-|   256 a4:d6:64:ec:c4:db:82:2f:63:65:b3:e1:66:a6:91:44 (ECDSA)
-|_  256 0d:8e:10:0b:cd:94:20:b4:41:21:ac:14:62:d6:8b:77 (ED25519)
-80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
-|_http-server-header: Apache/2.4.18 (Ubuntu)
-|_http-title: Rick is sup4r cool
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 13.51 seconds
-```
+Results:
+* 22/tcp open  ssh    OpenSSH 7.2p2 Ubuntu 4ubuntu2.6 (Ubuntu Linux; protocol 2.0)
+* 80/tcp open  http   Apache httpd 2.4.18 ((Ubuntu))
 
 * in /robots.txt find string *Wubbalubbadubdub*
 
@@ -145,6 +128,6 @@ so all the commands can be run by www-data
 
 * then:
 
-![img8](/images/pickle_rick-thm/img8.png?raw=true)
+![img7](/images/pickle_rick-thm/img7.png?raw=true)
 
 3rd ingredient: fleeb juice
