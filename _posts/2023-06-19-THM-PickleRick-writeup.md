@@ -5,74 +5,58 @@
 The following challenge is hosted by TryHackMe and aims at exploiting a web server in order to find three ingredients in order to help Rick, who wants to create a potion.
 Let's begin.
 
-## Website
+## Target enumeration
 
-* In source code there is this comment:
-"
-    Note to self, remember username!
-
-    Username: R1ckRul3s
-  "
-
-* run nmap command:
+As usual, we start analyzing the target by launching *nmap* command:
 ```
 nmap -sV -A -T4 10.10.38.165 -oN nmap.txt
 ```
-Results:
-* 22/tcp open  ssh    OpenSSH 7.2p2 Ubuntu 4ubuntu2.6 (Ubuntu Linux; protocol 2.0)
-* 80/tcp open  http   Apache httpd 2.4.18 ((Ubuntu))
+As a result we obtain that ports 22 (ssh) and 80 (http) are open.
 
-* in /robots.txt find string *Wubbalubbadubdub*
+Let's examine the website.
 
-* connecting to port 22 (ssh) using username R1ckRul3s and passwrod Wubbalubbadubdub doesn't work (error: R1ckRul3s@10.10.38.165: Permission denied (publickey).)
+## Website
 
-* tried to find hidden files/strings in images in assets/ directory: nothing found
+Inspecting the source code, we immediately find this comment:
 
-* run
+*Note to self, remember username! Username: R1ckRul3s*
+
+So, we jot down the username *R1ckRul3s*.
+
+In the */robots.txt* page we find a mysterious string, i.e.: *Wubbalubbadubdub*.
+
+If we try to connect to port 22 (ssh) using as username R1ckRul3s and as password Wubbalubbadubdub doesn't work (permission denied), so we need to discover where these credentials can be used.
+So, we launch *gobuster* in order to discover other potential paths, we the following command (note the *x* option, where we look for files with php extension, too):
+
 ```
-nikto -h 10.10.38.165
+gobuster -w <path/to/wordlist/>directory-list-2.3-small.txt -u http://<target_ip>/ -t 20 -x php
 ```
 
-* meglio gobuster con php extension:
-```
-gobuster -w /usr/share/wordlists/directory-list-2.3-small.txt -u http://10.10.38.165/ -t 20 -x php
-```
+As a result we obtain these paths:
 
-result:
-
-=====================================================
-Gobuster v2.0.1              OJ Reeves (@TheColonial)
-=====================================================
-[+] Mode         : dir
-[+] Url/Domain   : http://10.10.38.165/
-[+] Threads      : 20
-[+] Wordlist     : /usr/share/wordlists/directory-list-2.3-small.txt
-[+] Status codes : 200,204,301,302,307,403
-[+] Extensions   : php
-[+] Timeout      : 10s
-=====================================================
-2023/05/01 12:51:37 Starting gobuster
-=====================================================
-/login.php (Status: 200)
-/assets (Status: 301)
-/portal.php (Status: 302)
+* /login.php (Status: 200)
+* /assets (Status: 301)
+* /portal.php (Status: 302)
 
 
-* go to *login.php* and use credetials R1ckRul3s:Wubbalubbadubdub
+Yep! We found the place to insert the above-mentioned credentials: *login.php*.
 
 ![img3](/images/pickle_rick-thm/img3.png?raw=true)
 
+
 ## First ingredient
 
-* run ```ls``` command in command panel and get these results:
-**Sup3rS3cretPickl3Ingred.txt**
-assets
-clue.txt
-denied.php
-index.html
-login.php
-portal.php
-robots.txt
+Once logged in, we land in a web page with a menu with some options on the top. The most interesting tab is *Commands*. Indeed, here we can find an input form, where we can run shell commands.
+
+For example, if we type the ```ls``` command, we can get the following results:
+* **Sup3rS3cretPickl3Ingred.txt**
+* assets
+* clue.txt
+* denied.php
+* index.html
+* login.php
+* portal.php
+* robots.txt
 
 * we need to cat Sup3rS3cretPickl3Ingred.txt file but a filter is placed
 
@@ -81,11 +65,13 @@ robots.txt
 
 * bypass it using the following command
 
-![img5](/images/pickle_rick-thm/img5.png?raw=true):
-
 ```
 /bin/c?t Sup3rS3cretPickl3Ingred.txt
 ```
+
+![img5](/images/pickle_rick-thm/img5.png?raw=true):
+
+
 first flag found: mr. meeseek hair
 
 ## Second ingredient
