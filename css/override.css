@@ -6,6 +6,10 @@ body {
   color: #404040;
 }
 
+img{
+  filter: drop-shadow(8px 8px 3px #222f3f);
+}
+
 .sticky-top {
   /*position: fixed;
   left: 90px;*/
