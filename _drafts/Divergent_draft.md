@@ -33,11 +33,44 @@ than 98% of accuracy against undefended traffic flows.
 
 Convolutational Neural Networks are a particular Deep Learning model, which is specialized in dealing with images and videos (that is, grid-like structures elements). Note that a traffic of data packets can be expressed like a matrix, where each row represents the feature considered.
 
-![cnn](/images/divergent/cnn-model)
+![cnn](/images/divergent/cnn-model.png)
 
 If you want to know more about them, give a look [here](https://www.simplilearn.com/tutorials/deep-learning-tutorial/convolutional-neural-network).
 
+
 ## WF Defence
+
+![defence](/images/divergent/defence.png)
+
+Now that we know how the attack works, how can we defend against it? What do we need to disrupt and bypass such a threat?
+
+The naive way is by sending all the packets with the same rate and of the same size, so that each network connection appears equal to all the others. But this idea, of course, introduce too much overhead. So we must think in a more functional and effective mechanism. 
+
+There are several ways, but let's see some of the features Divergent implements.
+
+The first method is to *delay packets*, so that the time feature, exploited by the adversarial model, is messed up.
+
+Then, make packets (or burst of packets) as equal as possible in size, keeping in mind the efficiency of the communication.
+
+Finally, injecting dummy packets in order to change the traffic flow strictly bound to a web resource.
+
+![wf_defences](/images/divergent/wf_defences.png)
+
+### Literature proposals
+
+Here we mention some of the defences that have been proposed in the literature.
+
+*BuFLO* is one of the first defences and apply the most direct method: make the traffic almost equal by padding packets to equal size and at a constant rate.
+
+*Traffic morphing* consists in turning a traffic trace associated to a web resource into a flow of another one.
+
+*GLUE* exploits the so-called split decision problem. That is, researchers showed that it is difficult to split two web-pages loading, especially when they overlap each other.
+
+*Walkie-talkie* changes from a full to a half-duplex communication and simulates the loading of two web-pages, by sending the supersequence of the two resources.
+
+Finally, *TrafficSliver*, which is worth mentioning it since it exploits randomness in the Tor routing algorithm, and not directly in the traffic network.
+
+
 
 
 
