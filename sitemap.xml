@@ -9,32 +9,42 @@
 
 <url>
   <loc>https://francevarotz98.github.io/</loc>
-  <lastmod>2023-04-20T13:45:00+00:00</lastmod>
+  <lastmod>2023-06-20T08:10:11+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://francevarotz98.github.io/archive.html</loc>
-  <lastmod>2023-04-20T13:45:00+00:00</lastmod>
+  <lastmod>2023-06-20T08:10:11+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://francevarotz98.github.io/resume.html</loc>
-  <lastmod>2023-04-20T13:45:00+00:00</lastmod>
+  <lastmod>2023-06-20T08:10:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://francevarotz98.github.io/2023/06/19/THM-PickleRick-writeup.html</loc>
+  <lastmod>2023-06-20T08:10:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://francevarotz98.github.io/2023/04/26/HTB-Illumination-writeup.html</loc>
+  <lastmod>2023-06-20T08:10:11+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://francevarotz98.github.io/2023/04/26/HTB-BroScience-writeup.html</loc>
+  <lastmod>2023-06-20T08:10:11+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://francevarotz98.github.io/2023/04/13/websec.fr-writeup.html</loc>
-  <lastmod>2023-04-20T13:45:00+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://francevarotz98.github.io/2023/01/19/HTB-BroScience-writeup.html</loc>
-  <lastmod>2023-04-20T13:45:00+00:00</lastmod>
+  <lastmod>2023-06-20T08:10:11+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://francevarotz98.github.io/2022/10/08/otw-bandit-writeup.html</loc>
-  <lastmod>2023-04-20T13:45:00+00:00</lastmod>
+  <lastmod>2023-06-20T08:10:11+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 
