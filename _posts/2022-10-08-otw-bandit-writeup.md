@@ -110,7 +110,7 @@ cd inhere
 a=`find ./ -type f -readable ! -executable -size 1033c` ; cat $a;
 ```
 
-![img7](/images/bandit0/image7.png)
+![img7](/images/bandit0/img7.png)
 
 
 ## Level 6 &rarr; 7
