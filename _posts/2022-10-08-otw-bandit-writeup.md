@@ -114,6 +114,7 @@ a=`find ./ -type f -readable ! -executable -size 1033c` ; cat $a;
 
 
 ## Level 6 &rarr; 7
+
 Very similar to previous level, but with file with different features:
 1) owned by user bandit7;
 2) owned by group bandit6;
