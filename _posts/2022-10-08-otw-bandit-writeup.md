@@ -86,4 +86,53 @@ As we can observe from the output, *-file07* is an ASCII file, which contains th
 
 
 ## Level 5 &rarr; 6
-TODO
+As in the level before, we need to find a file which contains the password of the next level, and resides in the ~/inhere/ directory. 
+
+This file has the following properties:
+1) human-readable
+2) 1033 bytes in size
+3) not executable
+
+If we try to list the files in *inhere* we find a lot of directories, each containing files. So, we cannot find it manually.
+
+The command for solving the problem is **find**, with the following options:
+* *-type*, which sets the type of the file;
+* *-readable*, which, as the name suggests,  matches files which are readable;
+* *-executable*, which matches files which are executable, but since the file is NOT executable, we will prepend it with **!**;
+* *-size*, which looks for a file with *n* units of space.
+
+If you want to know more, follow this [link](https://www.explainshell.com/explain?cmd=find+-type+f+-readable+%21+-executable+-size+1033c)
+
+Then, the final command for solving this level is the following:
+
+```
+cd inhere
+a=`find ./ -type f -readable ! -executable -size 1033c` ; cat $a;
+```
+
+![img7](/images/bandit0/image7.png)
+
+
+## Level 6 &rarr; 7
+Very similar to previous level, but with file with different features:
+1) owned by user bandit7;
+2) owned by group bandit6;
+3) 33 bytes in size
+
+Solution:
+
+```
+find / -size 33c -group bandit6 -user bandit7 2> /dev/null
+```
+
+Note: **2> /dev/null** is useful for sending all the *trash* output to /dev/null. This is due to the fact that in some directories we have no permission for listing files.
+
+For more about the command used: [link](https://www.explainshell.com/explain?cmd=find++-size+33c+-group+bandit6+-user+bandit7)
+
+
+## Level 7 &rarr; 8
+Since only one *millionth* word is present in data.txt file, we simply have to run the following command in order to get the password:
+
+```
+cat data.txt | grep millionth
+```
