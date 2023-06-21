@@ -190,7 +190,7 @@ In the traditional scenario, the dataset of the attacker is composed by 10 diffe
  Instead, for evaluating the performances of the CNN adversarial model, we exploited its **accuracy**, which corresponds to the ratio of the number of correclty classified traces, over the total number of flows intercepted.
 
 
- ## Results
+## Results
 
  In both the scenarios the adversarial model obtains more than 92% of accuracy with traffic *without* any defence.
 Instead, with Divergent in place, in the traditional setting the attacker achieves 49% of accuracy, while in the Tor network 29%.
