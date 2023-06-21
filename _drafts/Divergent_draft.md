@@ -148,7 +148,81 @@ specific case, x is equal two.
 
 This means that, throughout all the network connection, every 2 real packets sent by S, this samples y and transmit a burst of dummies to C. In the first case y=1, so S sends only one dummy.
 
-Again, after 2 real packets, the server samples y and send as many dummy packets as y's value; in the second case y=2.
+Again, after 2 real packets, the server samples y and sends as many dummy packets as y's value; in the second case y=2.
+
+### Dummy packets
+
+The dummy packets we conceived can be of two different typologies: in the first case they are *simple fake packets*, injected in the network in order to hamper the attacker. On the other hand, we defined a different dummy packet, whose payload contains useful data, which is the output of the xor operation between next real packets, and the last, sent, real packet. This is made in order to waste as little bandwidth as possible.
+
+In order to recognize useless and useful dummies, the client relies on these writings: repsectively, **dummy** and **dummy_payload**.
+
+![dummy-pkt](/images/divergent/dummy_packet.png)
+
+Observe that in our implementation, for each burst of dummy packets there is 50% of probability that all the dummy packets contain useful data, otherwise they're all worthless.
 
 
+## Bandwidth and Time overhead
 
+In order to understand if a defence is efficient, two main metrics are considered: Bandwidth overhead (**BWOH**) and Time overhead (**TOH**).
+
+BWOH is the ratio between the number of injected dummy bytes over the original traffic.
+
+TOH, instead, represents the amount of time of the defended traffic flow with respect to the original one.
+
+Note that in Divergent, by construction, TOH is increased only when the server sends dummy packets without useful payload and at the same time the application data is ready. In all the other cases the whole transmission time does not increase.
+
+
+## Comparison with other defences
+
+In the table we represented the overheads that characterize other mechanisms and Divergent.
+
+WTF-PAD and Wakie-Talkie (W-T) were considered to be the option defences to be implemented in Tor. Here, we can see that our proposal improves both the overheads, reducing to 1/3 the BWOH w.r.t. WTF-PAD and of 25% against W-T.
+
+![defences](/images/divergent/defences.png)
+
+## Evaluation setup and metric
+
+In order to reproduce the attack and the defence, we created an environment using:
+Tensorflow coupled with Keras in order to build and train the adversarial model. Furthermore, we implemented a web client and a web server for generating the traffic traces.
+
+In the traditional scenario, the dataset of the attacker is composed by 10 different *videos*, while in the Tor network we used a dataset made available by professor Tao Wang. The traffic traces in this scenario are related to 10 distinct *web pages*.
+
+ Instead, for evaluating the performances of the CNN adversarial model, we exploited its **accuracy**, which corresponds to the ratio of the number of correclty classified traces, over the total number of flows intercepted.
+
+
+ ## Results
+
+ In both the scenarios the adversarial model obtains more than 92% of accuracy with traffic *without* any defence.
+Instead, with Divergent in place, in the traditional setting the attacker achieves 49% of accuracy, while in the Tor network 29%.
+We deem that this difference of accuracy it's due to the fact that the data in the traditional setting has been taken in a localhost scenario, so the (inter-)arrival times are very tiny. In this way, even if we add dummy packets, the DL model is not obstructed because it is able to detect and distinguish the dummy packets, due to the fact that the act of sampling y’s values takes one order of magnitude than the transmission time.
+
+Nevertheless, the attacker's confidence is very low in classic network, too.
+In fact, if we observe the confidence output by the softmax function in the table below, the values of each corresponding video are less than 50%. 
+
+In particular, the third row contains the probabilities that the model would assign a label to *video 7*. Here, note that the model cannot distinguish very well between video 4 and video 7. 
+On the row below, notice that the attacker model's confidence is only of 12%. So, it puts on the same level almost all the classes.
+
+![result](/images/divergent/results.png)
+
+To furnish more insight about the results, below there are two **confusion matrices** (CM) as regards the results in the *Tor network* without (on the left) and with (on the right) Divergent in place.
+
+![cm](/images/divergent/cm.png)
+
+
+## Discussion & future work 
+
+Very good. Now, what can we do to further improve our proposal? First of all, we can cluster videos, or more generally, web resources, so that the ones in the same cluster will be assigned to similar traffic flows, in order to further decrease attacker's accuracy.
+
+Next, an extension of clustering, is to *optimize* the values of x and y's, which are the main entities that introduce overhead in the transmission.
+
+Finally, an evaluation is needed in the so-called *open-world* scenario. This means that the victim does not have any limit on the resources that can request and consequently the attacker monitors only some resources.
+However, we argue that, since the closed-world scenario is more convenient for an attacker, we are confident that Divergent can work (better) in this setting, too.
+
+
+## Conclusion
+
+If you read till here, thank you for your time. Hope you enjoyed this journey :)
+
+If you need the code here is the link to the github repository: [link](https://github.com/francevarotz98/Divergent).
+
+Moreover, if you crave for knowing the details of this project, you can read my thesis in this [link](https://thesis.unipd.it/retrieve/7d5e5689-315d-44ea-9e0a-bb4fc0ab2ea1/Varotto_Francesco.pdf).
