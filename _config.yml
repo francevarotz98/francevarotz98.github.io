@@ -21,7 +21,7 @@ linkedin_username: "francesco-varotto-371b171b2"
 #########################################################################################
 ######### Nothing below needs to be changed (unless you know what you're doing) #########
 #########################################################################################
-theme: "reverie"
+theme: "minima"
 
 rss: rss
 
