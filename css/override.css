@@ -6,6 +6,15 @@ body {
   color: #404040;
 }
 
+pre{
+  padding: 2px 2px;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 95%;
+  background-color: #380428;
+  color: #ffd;
+}
+
+
 img{
   filter: drop-shadow(8px 8px 3px #222f3f);
 }
