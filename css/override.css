@@ -6,7 +6,7 @@ body {
   color: #404040;
 }
 
-code{
+pre{
   padding: 2px 2px;
   font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 95%;
