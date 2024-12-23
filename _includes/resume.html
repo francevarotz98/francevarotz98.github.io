@@ -1,58 +1,43 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <style>
-      div.myimg {
-        width: fit-content;
-        height: auto;
-        background-color: white;
-        margin-bottom: 25px;
-      }
-      
-      div.container {
-        text-align: center;
-        padding: 10px 20px;
-      }
-      
-      ul{
-        list-style-type: square;
-      }
-    </style>
-  </head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Francesco Varotto - Biography</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
 
-<body>  
-<h1> 
-  Biography
-</h1>
+  <header class="text-center py-8">
+    <h1 class="text-4xl font-bold text-blue-600">Biography</h1>
+  </header>
 
+  <main class="max-w-3xl mx-auto px-4">
+    <section class="mb-8">
+      <p class="text-justify mb-4">
+        I am Francesco Varotto, and I obtained my bachelor's and master's degrees at the University of Padova in Informatic Engineering and Cybersecurity in 2017 and 2022, respectively. My master thesis focused on a new defense against website fingerprinting attacks, named <i>Divergent</i> (<a href="https://github.com/francevarotz98/Divergent" target="_blank" class="text-blue-500 hover:underline">here</a> you can find the link to the project).
+      </p>
 
-<p>
-  I am Francesco Varotto and I obtained my bachelor's and master's degree
-  @University of Padova in Informatic Engineering and Cybersecurity, in 2017 and 2022, respectively.
-  My master thesis focused on a new defence against website fingerprinting attacks, named <i>Divergent</i>
-  (<a href="https://github.com/francevarotz98/Divergent">here</a> you can find the link to the project).
-  
-  My interests focus on: 
-  <ul>
-    <li> Network Security </li>
-    <li> WebApp Security </li>
-    <li> Reverse Engineering </li>
-    <li> Side-Channel attacks </li>
-  </ul>
-</p>
+      <p class="mb-4">My interests focus on:</p>
+      <ul class="list-disc list-inside space-y-2">
+        <li>Network Security</li>
+        <li>WebApp Security</li>
+        <li>Reverse Engineering</li>
+        <li>Side-Channel Attacks</li>
+      </ul>
+    </section>
 
-<p>
-<div class="myimg">
-  <img src="/images/profile_photo.jpeg" alt="That's me">
-  <div class="container">
-    <p>... and that's me</p>
-  </div>
-</div>
-   
-</p>
+    <section class="flex flex-col items-center mb-8">
+      <img src="/images/profile_photo.jpeg" alt="Francesco Varotto" class="w-48 h-48 rounded-full border-4 border-blue-500 shadow-lg mb-4">
+      <p class="italic text-gray-600">... and that's me</p>
+    </section>
 
-<p>
-Now I am working as a penetration tester.
-</p>
+    <section>
+      <p class="text-justify">
+        Currently, I am working as a penetration tester.
+      </p>
+    </section>
+  </main>
+
 </body>
 </html>
